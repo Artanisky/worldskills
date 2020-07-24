@@ -15,4 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+})->name('welcome');
+Route::get('/login', 'UserController@index')->name('login');
+Route::post('/login', 'UserController@login')->name('user-login');
+Route::middleware('auth:web')->group(function (){
+    Route::get('/dashboard','DashboardController@index')->name('dashboard');
+    Route::get('/dashboard/templates', 'DashboardController@templates')->name('templates');
+    Route::get('/logout','UserController@logout')->name('user-logout');
 });
